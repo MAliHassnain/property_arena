@@ -11,7 +11,13 @@ import { Property } from '../model/property';
 export class HousingService {
 
   constructor(private http:HttpClient) { }
-
+  getProperty(id: number) {
+    return this.getAllProperties().pipe(
+      map(propertiesArray => {
+        return propertiesArray.find(p => p.Id === id);
+      })
+    );
+  }
   getAllProperties(SellRent?: number): Observable<Property[]> {
     return this.http.get('data/properties.json').pipe(
       map(data => {
